@@ -56,6 +56,70 @@ displayNumber(long num)
 
 1f: 7,7 1e: 15,7 2f: 47,7 2e: 55,7 3a: 0,7 3b: 1,7 3c: 2,7 3d: 3,7 3e: 4,7 3f: 5,7 3g: 6.7 4a: 8,7 4b: 9,7 4c: 10,7 4d: 11,7 4e: 12,7 4f: 13,7 4g: 14,7 5a: 40,7 5b: 41,7 5c: 42,7 5d: 43,7 5e: 44,7 5f: 45,7 5g: 46,7 6a: 48,7 6b: 49,7 6c: 50,7 6d: 51,7 6e: 52,7 6f: 53,7 6g: 54,7
 
+# Pulse X Jam support
+
+The **Pulse X Jam** uses the **same PLS916H wire protocol** as the regular Pulse X (1 MHz SPI mode 0, MSB-first, identical 13-byte header `5A FF 01 5A 24 21 3D 01 83 5A FF 02 5B`, 144-byte payload, 1-byte additive checksum, 4-byte tail `5A FF 04 5D`) — so the `write_pls916h()` function from the regular sketch works on the Jam unchanged. But the **physical-to-bit segment mapping is completely different**, so flashing the regular `general_use.ino` to a Jam will light segments without forming the right digits in the right places.
+
+The [`pulsex_jam/`](pulsex_jam/) folder has a full remap:
+
+- [`pulsex_jam/general_use.ino`](pulsex_jam/general_use.ino) — the regular sketch's protocol code with the Jam mapping baked in, plus area-aware helpers (`e N` / `j N` for energy and juice independently), label icons, jam icon parts, and a small star animation runner.
+- [`pulsex_jam/jam_map.txt`](pulsex_jam/jam_map.txt) — every one of the 144 bytes documented (no bits wasted on the Jam — all 144 drive something visible).
+- [`pulsex_jam/README.md`](pulsex_jam/README.md) — wiring table, command list, and ESP32-C3 setup notes.
+
+## Jam byte map at a glance
+
+| Bytes | What it controls |
+| --- | --- |
+| 0-6 | Energy area: tens digit, segments a-g |
+| 7, 15 | Energy area: small "1" prefix (b = top of vertical line, c = bottom) |
+| 8-14 | Energy area: ones digit, a-g |
+| 16-22 | Juice area: tens digit, a-g |
+| 23, 31 | Juice area: small "1" prefix |
+| 24-30 | Juice area: ones digit, a-g |
+| 32 | "ENERGY" label icon |
+| 33-39 | Jam icon: top bar (7 LEDs) |
+| 40-44 | Jam icon: bottom bar (5 LEDs) |
+| 45-48 | Jam icon: center (JAM letters / diamond) |
+| 49 | "JUICE" label icon |
+| 50-104 | Decorative stars / comets / splatters (left wrap of the LCD) |
+| 105-143 | Decorative stars / comets / splatters (right wrap) |
+
+So the Jam can display two independent 0-199 numbers (each with the auto-handled "1" prefix), toggle the two label icons, toggle the central JAM icon in parts or whole, and animate the decorative stars.
+
+## Jam-specific serial commands
+
+In addition to all the standard commands from above (`num`, `digit`, `digits`, `set`, `clr`, `all 1`, `all 0`, `clear`), the Jam sketch adds:
+
+```
+e N               -> ENERGY area = N (0-199, with "1" prefix at >=100)
+j N               -> JUICE area = N (0-199)
+100               -> shows 100 in both areas
+energy on|off     -> "ENERGY" label icon
+juice on|off      -> "JUICE" label icon
+jam top|bot|center|full|off
+stars on|off|left|right
+anim off|sweep|trail|sparkle
+animspeed N       -> ms per animation step (default 80)
+traillen N        -> length of the comet tail in trail mode
+```
+
+## ESP32-C3 host support
+
+The Jam sketch also runs on an **ESP32-C3 Super Mini** (and other Arduino-ESP32 boards). It's the same code — only the SPI setup is conditional. Three things to be aware of on the C3:
+
+1. **JTAG on GPIO 4-7.** The Espressif USB-Serial-JTAG controller holds GPIO 4-7 unless explicitly detached. The sketch calls `gpio_reset_pin()` on the SCK and MOSI pins before `SPI.begin()` so SPI can drive them.
+2. **Custom SPI pins.** On the C3, FSPI can be routed to any GPIO via the GPIO matrix. The sketch uses `SPI.begin(SCK, MISO, MOSI, SS)` with MISO and SS = -1 (the screen is write-only).
+3. **USB CDC.** With Arduino-ESP32 core 3.x, set **Tools > USB CDC On Boot: Enabled** (FQBN option `CDCOnBoot=cdc`). Without it `Serial` goes to UART0 hardware pins instead of the USB port and you won't see any output.
+
+Pin assignment used by the sketch:
+
+| Screen pad | UNO  | ESP32-C3 |
+| ---------- | ---- | -------- |
+| V          | 3.3V | 3.3V     |
+| G          | GND  | GND      |
+| C          | 13   | GPIO 4   |
+| D          | 11   | GPIO 6   |
+
 # Wiring
 
 Your GeekBar's display will look like this:
