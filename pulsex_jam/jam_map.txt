@@ -1,0 +1,146 @@
+# Pulse X Jam segment map. byte N (bit 7) -> physical segment description.
+# 144/144 labelled.
+byte 0: energy left big digit segment a (top)
+byte 1: energy left big digit segment b (top-right)
+byte 2: energy left big digit segment c (bottom-right)
+byte 3: energy left big digit segment d (bottom)
+byte 4: energy left big digit segment e (bottom-left)
+byte 5: energy left big digit segment f (top-left)
+byte 6: energy left big digit segment g (middle)
+byte 7: top segment from the two segments of the 1 from 100 at energy area
+byte 8: top center segement from 3rd 0 at energy area
+byte 9: top right segment from 3rd 0 at energy area
+byte 10: bottom right segment from 3rd 0 at energy area
+byte 11: bottom segment from 3rd 0 at energy area
+byte 12: bottom left segment from 3rd 0 at energy area
+byte 13: top left segment from 3rd 0 at energy area
+byte 14: middle segment of 3rd 0
+byte 15: bottom segment of number 1 in energy area
+byte 16: top segment of middle 0 at juice area
+byte 17: top right segment of middle 0 at juice area
+byte 18: bottom right segment of middle 0 at juice area
+byte 19: bottom segment of middle 0 at juice area
+byte 20: bottom left segment of middle 0 at juice area
+byte 21: top left segment of middle 0 at juice area
+byte 22: center middle segment of middle 0 at juice area
+byte 23: top segment of 1 from 100 in juice area
+byte 24: top segment of 3rd 0 at juice area [D[D[D[D[D[D[D[D[D[D[C
+byte 25: top right segment of 3rd 0 at juice area
+byte 26: bottom right segment of 3rd 0 at juice area
+byte 27: bottom center segment of 3rd 0 at juice area
+byte 28: bottom left segment of 3rd 0 at juice area
+byte 29: top left segment of 3rd 0 at juice area
+byte 30: center middle segment of 3rd 0 a juice area
+byte 31: bottom segment of 1 from juice area
+byte 32: energy icon
+byte 33: one led from top bar of jam icon
+byte 34: another led left to the previous, filling the top bat of jam icon more
+byte 35: center led from top bar of jam icon
+byte 36: left led from top bar of jam icon
+byte 37: farther left led from top bar of jam icon
+byte 38: another farther left led from top bar of jam icon
+byte 39: far left led from bottom bar of jam icon, activating all previous 33-38 would fill out entire top bar of jam icon
+byte 40: bottom led right of previous from jam icon bar bottom side
+byte 41: another led to the right of bottom bar from jam icon
+byte 42: another led to the right of bottom bar from jam icon
+byte 43: another led to the right of bottom bar from jam icon
+byte 44: another led to the right slightly higher of bottom bar from jam icon, they are basically two parentheses vertically ( ) aorund the icon
+byte 45: an led in top left area of the jam icon itself
+byte 46: bottom left led in jam icon
+byte 47: center led in jam icon
+byte 48: right led in jam icon
+byte 49: juice icon itself
+byte 50: first group of stars left to the numbers and icon area[D[C, in bottom left area closest to the segment area itself
+byte 51: a shooting star left to the segment number area, bottom area
+byte 52: another led in the same star as 51
+byte 53: large group of stars close to star 51-52[D[D, small stars but splattered like toothbrush splatter paint
+byte 54: a comet looking thing close to bottom area near previous group
+byte 55: another splatter group left to previous
+byte 56: shooting star even more left to previous
+byte 57: two shooting stars right to previous near bottom of screen
+byte 58: farthest left splatter group
+byte 59: two small splatters above previous
+byte 60: same as 59 slightly more above
+byte 61: same as 60 slightly to right of previous
+byte 62: a comet above all previous
+byte 63: splatter group to the right of previous comet
+byte 64: shooting star right of previous
+byte 65: another led in 64 making the star larger
+byte 66: final led of that shooting star spills into another small one as well
+byte 67: splatter group close to segment number group, closer to mid point of screen
+byte 68: comet in middle of previous splatter group
+byte 69: splatter group above previous now at middle of screen
+byte 70: comet near 69
+byte 71: another led near 69 and 70
+byte 72: another led near 70 and 71
+byte 73: big splatter group, will have more leds
+byte 74: bit splatter group in 73 other side filling it out
+byte 75: comet to left of previous
+byte 76: shooting star below 73 and 74
+byte 77: another led in 76
+byte 78: another led in 76 and 77
+byte 79: small splatter group at left farthest of screen at vertical middle
+byte 80: shooting star above 79 group
+byte 81: another led in 80
+byte 82: another led in 80 and 81
+byte 83: small splatter above previous
+byte 84: another led in 83
+byte 85: another led in 84 and 85
+byte 86: final led in previous group
+byte 87: moderate splatter close to left side edge of screen
+byte 88: comet inside 87 2mm in width
+byte 89: small splatter right of 88
+byte 90: bigger splatter right of 89
+byte 91: shooting star near number segment group
+byte 92: small splatter at farthest top left corner of lcd
+byte 93: another led in 92
+byte 94: another led in 92 and 93
+byte 95: comet under previous slightly right of it
+byte 96: big splatter at top left of screen
+byte 97: shooting star inside 96
+byte 98: another led in 97
+byte 99: another led in 97 and 98
+byte 100: shooting star left of previous group
+byte 101: another led in 100
+byte 102: another led in 100 and 101
+byte 103: splatter at top right left of number segment group (everything from 50 till now has been left of number segment area, this screen is a wraparound so soon the next bytes will be right side of number segment area
+byte 104: comet at top right left of number segment area
+byte 105: we have now moved to the right side, farthest right splatter on top edge of lcd right of number segment group
+byte 106: shooting star under previous
+byte 107: another led in star of 106
+byte 108: another led in star of 106 and 107
+byte 109: farthest right shooting star above previous group
+byte 110: another led in 109
+byte 111: another led in 109 and 110, spilling over into another as well
+byte 112: splatter group near previous group
+byte 113: single comet inside splatter
+byte 114: another led in comet inside splatter
+byte 115: another led in comet inside splatter
+byte 116: small splatter left of previous group
+byte 117: another led in 116
+byte 118: another led in 116 and 117
+byte 119: another led in 116 117 and 118
+byte 120: big splatter nearing middle of right side
+byte 121: big comet under previous splatter
+byte 122: small comet right of previous comet
+byte 123: another led in small comet
+byte 124: splatter slightly under previous
+byte 125: splatter slightly left of previous
+byte 126: comet under previous
+byte 127: really small comet left of previous near bottom bar of jam icon
+byte 128: another led in previous
+byte 129: another led in previous
+byte 130: small comet under previous
+byte 131: another led in previous
+byte 132: another led in previous
+byte 133: big splatter group spilling under the area of bottom bar of jam icon, has a big comet as well, left oand under of previous
+byte 134: small shooting star under previous
+byte 135: small shooting stars (2) under previous
+byte 136: splatter group right and a bit above previous
+byte 137: star under previous
+byte 138: another led in 137
+byte 139: splatter group under previous
+byte 140: shooting star inside previous
+byte 141: another led in 140
+byte 142: another led in 140 and 141
+byte 143: splatter group at very bottom edge of lcd right of number segment group (everything from 105 to now has been right of number segment group) essentially the other side of the screen

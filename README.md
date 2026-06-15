@@ -4,6 +4,8 @@
 
 This repo aims to divert old GeekBar Pulse X and other disposable vapes from the landfill by reusing the SPI LED displays from the devices. There are 3 *.ino files available: general_use.ino (the general testing/display mapping script), CompleteDisplayMap.ino, which is the same as general_use.ino but with more features (thanks, masterPlusTer), and tempsense.ino (a demo temperature sensor script for use with an AGT20 or AGT10 sensor.) The scripts were tested on an Arduino UNO, but they probably work on most other microcontrollers.
 
+The [`pulsex_jam/`](pulsex_jam/) folder adds support for the **Pulse X Jam** (which uses the same wire protocol but a completely different physical-to-bit mapping), and includes notes for running on the **ESP32-C3 Super Mini** in addition to UNO.
+
 # IMPORTANT - READ BEFORE YOU TAKE THE VAPE APART!
 
 For instructions on disassembling the GeekBar Pulse X disposable vape, I like this video: https://www.youtube.com/watch?v=1qDz5shnr1c&t=491s
@@ -13,6 +15,8 @@ Make sure to follow the instructions carefully, as there are lots of little thin
 # Screen compatibility:
 Tempsense.ino only works with regular GeekBar Pulse X's, not any special editions like Pulse X edition or Pulse X Jam; you will have to change the mappings for it to work.
 General_use.ino is compatible with all GeekBar Pulse X devices, and other vapes that use the same kind of display, like the Viho TRX 50K (not tested), with the exclusion of the "num", "digit", and "digits' serial commands, and the "displayDigit()", "displayDigits()", and "displayNumber()" functions. You will have to change the mappings for those to work.
+
+For the **Pulse X Jam** specifically, the remapped sketch + full segment map is in [`pulsex_jam/`](pulsex_jam/).
 
 # Serial command syntax:
 
